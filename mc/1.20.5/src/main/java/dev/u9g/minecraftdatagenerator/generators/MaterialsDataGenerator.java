@@ -145,7 +145,7 @@ public class MaterialsDataGenerator implements IDataGenerator {
                                         String materialName = makeMaterialNameForTag(tagKey.get());
 
                                         Map<Item, Float> materialSpeeds = materialMiningSpeeds.computeIfAbsent(materialName, k -> new LinkedHashMap<>());
-                                        float miningSpeed = item.getComponents().get(DataComponentTypes.TOOL).defaultMiningSpeed();
+                                        float miningSpeed = Objects.requireNonNull(item.getComponents().get(DataComponentTypes.TOOL)).rules().getLast().speed().orElseThrow();
                                         materialSpeeds.put(item, miningSpeed);
                                     }
                                 }
